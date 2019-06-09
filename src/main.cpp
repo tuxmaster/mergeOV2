@@ -15,21 +15,25 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 #include <QtCore>
-#include "EntryDelete.h"
-#include "EntrySimple.h"
-#include "EntryExtended.h"
-#include "EntrySkipp.h"
+#include "config.h"
+#include "Controller.h"
+
 
 int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
-	EntryDelete* d = new EntryDelete();
-	EntrySimple* s = new EntrySimple();
-	EntryExtended* e = new EntryExtended();
-	EntrySkipp* sk = new EntrySkipp();
-	qInfo()<<"delete " << d->type_id();
-	qInfo()<<"simple "<< s->type_id();
-	qInfo()<<"extended "<< e->type_id();
-	qInfo()<<"skipp " <<sk->type_id();
+	QCoreApplication::setApplicationVersion(VERSION);
+	QCoreApplication::setApplicationName(APP_NAME);
+	QCommandLineParser parser;
+	parser.setApplicationDescription(QCoreApplication::translate("main","Merge .ov2 files."));
+	parser.addHelpOption();
+	parser.addVersionOption();
+	parser.addPositionalArgument("source", QCoreApplication::translate("main", "Directory with ov2 files."));
+	parser.addPositionalArgument("result", QCoreApplication::translate("main", "Target ov2 file."));
+	parser.process(a);
+	const QStringList args = parser.positionalArguments();
+	if(args.size() != 2)
+		parser.showHelp();
+	new Controller(&a, args[0], args[1]);
 	return a.exec();
 }
