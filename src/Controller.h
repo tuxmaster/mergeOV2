@@ -27,11 +27,13 @@ class Controller : public QObject
 		Controller(QObject* parrent, const QString& src_dir, const QString& dst_file);
 
 	signals:
-		void quit();
+		void		quit();
 
 	public slots:
+
 	private slots:
-		void start();
+		void		start();
+
 	private:
 			QDir	p_srcPath;
 			QFile	p_dstFile;

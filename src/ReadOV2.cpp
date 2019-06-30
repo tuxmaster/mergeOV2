@@ -26,11 +26,34 @@ bool ReadOV2::read()
 	QByteArray buffer;
 	if (p_file.open(QIODevice::ReadOnly))
 	{
+		int pos = 0;
+		quint32 size;
 		qInfo()<<"processing "<<p_file.fileName();
 		buffer = p_file.readAll();
-		p_result = new QByteArray();
-		p_result->append(buffer);
 		p_file.close();
+		p_result = new QByteArray();
+
+		while (pos != -1 )
+		{
+			qDebug()<<"Type: "<<QString::number(buffer[pos],16).toUpper();
+			switch (buffer[pos])
+			{
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+					size = *reinterpret_cast<const quint32*>(buffer.mid(pos+1, 4).constData());
+					qDebug()<<"size: "<<size;
+					break;
+				default:
+						qWarning()<<QCoreApplication::translate("ReadOV2","File %1 damaged.").arg(p_file.fileName());
+						return false;
+			}
+			p_result->append(buffer.mid(pos,static_cast<int>(size)));
+			pos = pos + static_cast<int>(size);
+			if (pos == buffer.size())
+				pos = -1;
+		}
 		p_resultValid = true;
 		return true;
 	}
