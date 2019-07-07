@@ -25,10 +25,11 @@ class ReadOV2
 		ReadOV2(const QFileInfo &file);
 		bool		read();
 		QByteArray*	result();
+
 	private:
-		bool		p_resultValid;
-		QFile		p_file;
-		QByteArray*	p_result;
+		bool		m_resultValid;
+		QFile		m_file;
+		QByteArray*	m_result;
 };
 
 #endif // READOV2_H

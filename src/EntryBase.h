@@ -16,9 +16,9 @@
 */
 /*
  * Coordinates are stored as 4−byte integers representing a WGS84 longitude or latitude,
- * multiplied by100,000 and rounded to the nearest integer. As such, an X−coordinate
- * should always be a value between−18,000,000 and +18,000,000, and a Y−coordinate should
- * be a value between −9,000,000 and +9,000,000.
+ * multiplied by 100.000 and rounded to the nearest integer. As such, an X−coordinate
+ * should always be a value between −18.000000 and +18.000000 and a Y−coordinate should
+ * be a value between −9.000000 and +9.000000.
  */
 #ifndef ENTRYBASE_H
 #define ENTRYBASE_H
@@ -27,7 +27,8 @@
 class EntryBase
 {
 	public:
+		virtual ~EntryBase(){}
 		virtual const unsigned char& type_id() const = 0;
+		virtual void create(const QByteArray &data) = 0;
 };
-
 #endif // ENTRYBASE_H

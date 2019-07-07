@@ -30,7 +30,8 @@
 class EntryExtended: public EntrySimple
 {
 	public:
-		virtual const unsigned char& type_id() const  Q_DECL_OVERRIDE { return EntryExtended::p_typeID; }
+		const unsigned char& type_id() const  Q_DECL_OVERRIDE { return EntryExtended::p_typeID; }
+		void create(const QByteArray& data) Q_DECL_OVERRIDE {}
 
 	private:
 		static const unsigned char p_typeID;

@@ -25,13 +25,20 @@
 #ifndef ENTRYSIMPLE_H
 #define ENTRYSIMPLE_H
 #include "EntryBase.h"
+#include <QtPositioning/QGeoCoordinate>
+
 class EntrySimple: public EntryBase
 {
 	public:
-		virtual const unsigned char& type_id() const  Q_DECL_OVERRIDE { return EntrySimple::p_typeID; }
+		const unsigned char&		type_id() const Q_DECL_OVERRIDE;
+		void						create(const QByteArray& data) Q_DECL_OVERRIDE;
+		const QGeoCoordinate&		position() const;
+		const QString&				name() const;
 
 	private:
-		static const unsigned char p_typeID;
+		static const unsigned char	p_typeID;
+		QGeoCoordinate				m_position;
+		QString						m_name;
 };
-const unsigned char EntrySimple::p_typeID = 2;
+QDebug operator<<(QDebug dbg, const EntrySimple &entry);
 #endif // ENTRYSIMPLE_H

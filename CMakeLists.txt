@@ -8,6 +8,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5Core CONFIG REQUIRED)
 find_package(Qt5Concurrent CONFIG REQUIRED)
+find_package(Qt5Positioning CONFIG REQUIRED)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fuse-ld=gold")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fuse-ld=gold")
@@ -25,10 +26,11 @@ set(MY_HDR
 
 set(MY_SRC
 	src/main.cpp
+	src/EntrySimple.cpp
 	src/Controller.cpp
 	src/ReadOV2.cpp
 )
 
 add_executable(${PROJECT_NAME} ${MY_SRC} ${MY_HDR})
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Concurrent)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Concurrent Qt5::Positioning)
